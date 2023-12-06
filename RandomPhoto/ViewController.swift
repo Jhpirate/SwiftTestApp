@@ -14,22 +14,31 @@ class ViewController: UIViewController {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         
-        imageView.backgroundColor = .red
+        //imageView.backgroundColor = .red
+        imageView.layer.cornerRadius = 10
+        imageView.layer.masksToBounds = true
         
         return imageView;
     }()
 
     
     //creating the button container
-    private let newButtonThing: UIButton = {
+    private let newButtonItem: UIButton = {
         let buttonView = UIButton()
         
         buttonView.backgroundColor = .orange
         buttonView.setTitle("Random Photo", for: .normal)
-        buttonView.setTitleColor(.red, for: .normal)
+        buttonView.setTitleColor(.white, for: .normal)
+        buttonView.titleLabel?.font = .systemFont(ofSize: 20.0, weight: .bold)
+        
+        // Set rounded corners
+        buttonView.layer.cornerRadius = 10.0
+        buttonView.layer.masksToBounds = true
         
         return buttonView
     }()
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,9 +63,14 @@ class ViewController: UIViewController {
         // call function to get random image
         getRandomPhoto()
         
+        
+        // button testing
+        
+        
+        
         // add button event handler
         // simple tap is called by apple touch up inside
-        newButtonThing.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        newButtonItem.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
     
     // this will load the safe view areas above the home bar
@@ -64,8 +78,8 @@ class ViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         //add the button as a sub view
-        view.addSubview(newButtonThing)
-        newButtonThing.frame = CGRect(x: 20,
+        view.addSubview(newButtonItem)
+        newButtonItem.frame = CGRect(x: 20,
                                       y:view.frame.size.height - 150 - view.safeAreaInsets.bottom,
                                       width: view.frame.size.width-50,
                                       height: 75)
@@ -94,6 +108,7 @@ class ViewController: UIViewController {
         imageView.image = UIImage(data: dataImage)
     }
     
+    // array of colors randomly picked from on button press
     let colors: [UIColor] = [
         .red,
         .orange,
